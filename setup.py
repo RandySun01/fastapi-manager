@@ -21,7 +21,7 @@ def find_version(path):
 setup(
     name='fastapi-manager',
     version=find_version('fastapi_manager/__init__.py'),
-    author='XChao',
+    author='cheerxiong',
     author_email='cheerxiong0823@163.com',
     description='FastApi simple project initializer',
     long_description='README.md',
@@ -29,5 +29,12 @@ setup(
     packages=find_packages(),
     include_package_data=True,
     install_requires=read('requirements.txt').splitlines(),
-    python_requires=">=3.6",
+    python_requires=">=3.7",
+    classifiers=[
+        'Development Status :: 5 - Production/Stable',
+        'Intended Audience :: Developers',
+        'Natural Language :: English',
+        'Programming Language :: Python :: 3.7',
+        'Programming Language :: Python :: Implementation :: CPython',
+    ],
 )
