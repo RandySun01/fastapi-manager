@@ -1,14 +1,12 @@
 # sys
 import logging
-
-# 3p
-from fastapi import FastAPI
+import typing as t
 
 DefaultLogFormatter = '%(asctime)s | %(levelname)s | %(message)s'
 DefaultLogLevel = logging.INFO
 
 
-def logger_extend(app: FastAPI):
+def logger_extend(app: t.Optional['FastAPI']):
     """ Simple configuration of logs
     """
     # setting: Configuration variables
