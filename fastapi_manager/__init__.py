@@ -5,7 +5,7 @@ import typing as t
 from .init import InitApp
 from .helper import dynamic_import
 
-__version__ = '1.0.0rc1'
+__version__ = '1.0.0rc2'
 
 
 def manager(
