@@ -11,21 +11,6 @@ from .setting import SettingCore
 
 class Manager:
     """ Encapsulates the FASTAPI initialization procedure
-
-    >>> Usage:
-        from fastapi import FastAPI
-        from fastapi_app import Manager, SettingCore
-        from fastapi_app.extend import logger_extend
-
-        class YouSetting(SettingCore):
-            ...
-
-        setting = YouSetting()
-        app = FastAPI()
-
-        with Manager(app, setting) as app:
-            logger_extend(app)
-            ...
     """
 
     def __init__(self, app: t.Optional['FastAPI'], setting: t.Optional['SettingCore']):
