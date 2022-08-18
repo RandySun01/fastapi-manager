@@ -3,6 +3,7 @@ import typing as t
 
 # project
 from .init import InitApp
+from .helper import dynamic_import
 
 __version__ = '1.0.0rc'
 
@@ -16,9 +17,21 @@ def manager(
 
     :param app: FastAPI instantiates the object
     :param setting: Any object that can be executed by getattr
-    :param extends: A list of functions in a fixed format
+    :param extends: A list of fixed-format functions
+    or a list of strings that can be imported dynamically
     """
+    # Obtaining the Configuration Object
+    if isinstance(setting, str):
+        setting = dynamic_import(setting)
+
+    # Init
     with InitApp(app, setting) as a:
-        for extend in extends:
+
+        # You can use this if you don't want to
+        # configure in a configuration object
+        for extend in extends or []:
+            if isinstance(extend, str):
+                extend = dynamic_import(extend)
             extend(a)
+
     return app

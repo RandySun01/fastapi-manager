@@ -1,6 +1,8 @@
 # sys
-import importlib
 import typing as t
+
+# project
+from .helper import dynamic_import
 
 
 class InitApp:
@@ -21,6 +23,7 @@ class InitApp:
         # Extension initialized by default
         self._init_middleware(self.app)
         self._init_router(self.app)
+        self._init_extend(self.app)
 
     def __enter__(self) -> t.Optional['FastAPI']:
         return self.app
@@ -39,12 +42,7 @@ class InitApp:
 
         # Init middleware
         for import_middleware, params in middlewares.items():
-            # Dynamically import the defined middleware
-            module, middleware_class = import_middleware.rsplit('.', 1)
-            module_obj = importlib.import_module(module)
-            middleware = getattr(module_obj, middleware_class)
-
-            # Middleware Parameters
+            middleware = dynamic_import(import_middleware)
             params = params or {}
             app.add_middleware(middleware, **params)
 
@@ -54,14 +52,22 @@ class InitApp:
         """
         # setting: Configuration variables
         setting = app.state.setting
-        routers = getattr(setting, 'Router', {})
+        routers = getattr(setting, 'Router', [])
 
         # Init router
         for import_router in routers:
-            # Dynamically import the defined router
-            module, router_str = import_router.rsplit('.', 1)
-            module_obj = importlib.import_module(module)
-            router = getattr(module_obj, router_str)
-
-            # Register the Router with the app
+            router = dynamic_import(import_router)
             app.include_router(router)
+
+    @staticmethod
+    def _init_extend(app: t.Optional['FastAPI']):
+        """ Initializing the extension
+        """
+        # setting: Configuration variables
+        setting = app.state.setting
+        extends = getattr(setting, 'Extend', [])
+
+        # Init router
+        for extend in extends:
+            extend = dynamic_import(extend)
+            extend(app)
