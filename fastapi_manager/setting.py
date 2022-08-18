@@ -46,8 +46,8 @@ class SettingBasic:
         # The address set by the environment
         # variable has a greater weight than
         # the address set by the path variable.
-        conf_env = getattr(self.Meta, 'conf_env')
-        path = getattr(self.Meta, 'path')
+        conf_env = getattr(self.Meta, 'conf_env', None)
+        path = getattr(self.Meta, 'path', None)
         if conf_env:
             path = os.environ.get(conf_env)
 

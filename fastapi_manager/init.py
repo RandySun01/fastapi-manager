@@ -18,6 +18,8 @@ class InitApp:
         """
         # Add a setting to the fastapi.state object
         self.app = app
+        if not setting:
+            raise ValueError('Setting cannot be None')
         self.app.state.setting = setting
 
         # Extension initialized by default

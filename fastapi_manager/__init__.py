@@ -5,7 +5,7 @@ import typing as t
 from .init import InitApp
 from .helper import dynamic_import
 
-__version__ = '1.0.0rc'
+__version__ = '1.0.0rc1'
 
 
 def manager(
@@ -32,6 +32,7 @@ def manager(
         for extend in extends or []:
             if isinstance(extend, str):
                 extend = dynamic_import(extend)
-            extend(a)
+            if extend:
+                extend(a)
 
     return app
