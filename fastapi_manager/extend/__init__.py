@@ -2,3 +2,5 @@
 """
 # project
 from .log import logger_extend
+from .orm import orm_extend
+from .cache import cache_extend
