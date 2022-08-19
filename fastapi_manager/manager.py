@@ -5,7 +5,6 @@ import typing as t
 from .init import InitApp
 from .helper import dynamic_import
 
-
 # Global Static Configuration
 static_setting: t.Any
 
