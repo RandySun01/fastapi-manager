@@ -10,6 +10,9 @@ def cache_extend(app: t.Optional['FastAPI']):
     setting = app.state.setting
     cache = getattr(setting, 'Cache', {})
 
+    if not cache:
+        raise KeyError('The Cache key is not configured in the configuration object')
+
     aioredis = importlib.import_module('aioredis')
 
     @app.on_event("startup")

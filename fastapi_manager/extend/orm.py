@@ -10,6 +10,9 @@ def orm_extend(app: t.Optional['FastAPI']):
     setting = app.state.setting
     database = getattr(setting, 'Database', {})
 
+    if not database:
+        raise KeyError('The Database key is not configured in the configuration object')
+
     tortoise = importlib.import_module('tortoise')
     register_tortoise = tortoise.contrib.fastapi.register_tortoise
 
