@@ -1,4 +1,5 @@
 # sys
+import importlib
 import typing as t
 
 
@@ -9,6 +10,7 @@ def orm_extend(app: t.Optional['FastAPI']):
     setting = app.state.setting
     database = getattr(setting, 'Database', {})
 
-    from tortoise.contrib.fastapi import register_tortoise
+    tortoise = importlib.import_module('tortoise')
+    register_tortoise = tortoise.contrib.fastapi.register_tortoise
 
     register_tortoise(app, **database)

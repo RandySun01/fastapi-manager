@@ -1,4 +1,5 @@
 # sys
+import importlib
 import typing as t
 
 
@@ -9,7 +10,7 @@ def cache_extend(app: t.Optional['FastAPI']):
     setting = app.state.setting
     cache = getattr(setting, 'Cache', {})
 
-    import aioredis
+    aioredis = importlib.import_module('aioredis')
 
     @app.on_event("startup")
     async def startup_event():

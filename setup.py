@@ -20,7 +20,7 @@ def find_version(path):
 
 setup(
     name='fastapi-manager',
-    version=find_version('fastapi_manager/__init__.py'),
+    version=find_version('fastapi_manager/version.py'),
     author='cheerxiong',
     author_email='cheerxiong0823@163.com',
     description='FastApi simple project initializer',
